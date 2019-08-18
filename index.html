@@ -44,6 +44,16 @@
       } //end of Nav bracket
 
       const Companies =({ companies, products, offerings}) => {
+        // console.log(companies, products, offerings)
+        const _companies = companies.map(company => {
+           let offers= offerings.filter(offer => offer.companyId === company.id)
+           offers.map(offer =>{
+             let _product = products.find(product => product.id === offer.productId)
+             return {...offer, _product}
+           })
+           return {...company, offers}
+        })
+        console.log(_companies)
         return (
           <div>
             <ul>
@@ -71,19 +81,35 @@
       };
 
       const Products =({ companies, products, offerings}) => {
-        console.log(products)
+        const _products = products.map(product =>{
+          let _offerings = offerings.map (offer => {
+            let company = companies.find(company => company.id ===offer.companyId)
+            return {...offer, company}
+          })
+          const offers = _offerings.filter(offer => offer.productId === product.id)
+          return {...product, offers }
+        }) //end of _product map
         return (
           <div>
             <ul>
             {
-              products.map(product => {
+              _products.map(product => {
                 return (
                   <li key = {product.id}>
                     <h2>{product.name}</h2>
                     <div>${product.suggestedPrice}.00</div>
                     <div>Offered by:
                       <ul>
-                        <li>{product.id}</li>
+                      {
+                          product.offers.map(offer => {
+                            return(
+                              <li key = {offer.id}>
+                              {offer.company.name}
+                              </li>
+                            )
+                          })
+
+                      }
                       </ul>
                     </div>
 
@@ -124,9 +150,9 @@
             <HashRouter>
               <Route render={ ({location}) => <Nav path={ location.pathname } products = { products } companies = { companies } /> } />
               <Switch>
-                <Route path='/companies' render={ () => <Companies companies={companies} />
+                <Route path='/companies' render={ () => <Companies companies={companies} products={products} offerings={offerings} />
                 } />
-                <Route path='/products' render={ () => <Products products={products}/>
+                <Route path='/products' render={ () => <Products products={products} companies={companies} offerings={offerings} />
                 } />
                 <Redirect to= '/companies' />
               </Switch>
