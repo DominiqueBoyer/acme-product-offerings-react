@@ -66,8 +66,7 @@
                       <div>
                       Offering:
                       <ul>
-                        <li> {company.id}
-                        </li>
+                        <li> {company.id} </li>
                       </ul>
                       </div>
                     </li>
@@ -80,7 +79,7 @@
         )
       };
 
-      const Products =({ companies, products, offerings}) => {
+      const Products = ({ companies, products, offerings}) => {
         const _products = products.map(product =>{
           let _offerings = offerings.map (offer => {
             let company = companies.find(company => company.id ===offer.companyId)
@@ -101,18 +100,14 @@
                     <div>Offered by:
                       <ul>
                       {
-                          product.offers.map(offer => {
-                            return(
-                              <li key = {offer.id}>
-                              {offer.company.name}
-                              </li>
-                            )
-                          })
-
+                        product.offers.map(offer => {
+                          return(
+                            <li key = {offer.id}> {offer.company.name} </li>
+                          )
+                        })
                       }
                       </ul>
                     </div>
-
                   </li>
                 );
               })
@@ -120,7 +115,7 @@
             </ul>
           </div>
         )
-      };
+      }; //enf od Products bracket
       class App extends Component {
         constructor(){
           super()
