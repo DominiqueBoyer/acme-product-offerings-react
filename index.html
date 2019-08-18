@@ -46,13 +46,52 @@
       const Companies =({ companies, products, offerings}) => {
         return (
           <div>
+            <ul>
+              {
+                companies.map(company => {
+                  return (
+                    <li key={company.id}>
+                      <h2>{ company.name }</h2>
+                      <div> { company.catchPhrase}</div>
+                      <div>
+                      Offering:
+                      <ul>
+                        <li> {company.id}
+                        </li>
+                      </ul>
+                      </div>
+                    </li>
+
+                  );
+                })
+              }
+            </ul>
           </div>
         )
       };
 
       const Products =({ companies, products, offerings}) => {
+        console.log(products)
         return (
           <div>
+            <ul>
+            {
+              products.map(product => {
+                return (
+                  <li key = {product.id}>
+                    <h2>{product.name}</h2>
+                    <div>${product.suggestedPrice}.00</div>
+                    <div>Offered by:
+                      <ul>
+                        <li>{product.id}</li>
+                      </ul>
+                    </div>
+
+                  </li>
+                );
+              })
+            }
+            </ul>
           </div>
         )
       };
