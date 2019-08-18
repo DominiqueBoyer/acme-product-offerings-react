@@ -44,13 +44,12 @@
       } //end of Nav bracket
 
       const Companies =({ companies, products, offerings}) => {
-        // console.log(companies, products, offerings)
         const _companies = companies.map(company => {
-           let offers= offerings.filter(offer => offer.companyId === company.id)
-           offers.map(offer =>{
-             let _product = products.find(product => product.id === offer.productId)
-             return {...offer, _product}
+           const _offerings = offerings.map(offer => {
+             let product = products.find(product => product.id === offer.productId);
+             return {...offer, product}
            })
+           const offers = _offerings.filter(offer => offer.companyId === company.id)
            return {...company, offers}
         })
         console.log(_companies)
