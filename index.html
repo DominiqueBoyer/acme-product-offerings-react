@@ -57,7 +57,7 @@
           <div>
             <ul>
               {
-                companies.map(company => {
+                _companies.map(company => {
                   return (
                     <li key={company.id}>
                       <h2>{ company.name }</h2>
@@ -65,7 +65,11 @@
                       <div>
                       Offering:
                       <ul>
-                        <li> {company.id} </li>
+                        {company.offers.map(offer =>{
+                          return (
+                            <li key={offer.id}>{offer.product.name} at {offer.price}</li>
+                          );
+                        })}
                       </ul>
                       </div>
                     </li>
